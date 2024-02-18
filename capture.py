@@ -21,6 +21,8 @@ if not cap.isOpened():
 # Wait for the camera to initialize and adjust light levels
 time.sleep(2)
 
+x = 0
+
 while True:
     ret, frame = cap.read()
     if ret:
@@ -36,9 +38,19 @@ while True:
         # Convert the PIL image back to an OpenCV image
         frame = cv2.cvtColor(np.array(resized_img), cv2.COLOR_RGB2BGR)
 
+        if x == 2:
+            path = f"{folder}/frame2.jpg"
+            x = 0
+        elif x == 1:
+            path = f"{folder}/frame1.jpg"
+            x = 2
+        else:
+            path = f"{folder}/frame.jpg"
+            x = 1
+        
         # Save the frame as an image file
         print("📸 Say cheese! Saving frame.")
-        path = f"{folder}/frame.jpg"
+
         cv2.imwrite(path, frame)
     else:
         print("Failed to capture image")
