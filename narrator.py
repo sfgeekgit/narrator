@@ -9,7 +9,7 @@ from elevenlabs import generate, play, set_api_key, voices
 
 client = OpenAI()
 
-set_api_key(os.environ.get("ELEVENLABS_API_KEY"))
+#set_api_key(os.environ.get("ELEVENLABS_API_KEY"))
 
 def encode_image(image_path):
     while True:
@@ -69,6 +69,7 @@ def analyze_image(base64_image, script):
         + generate_new_line(base64_image),
         max_tokens=500,
     )
+    print(f"{script=}")
     response_text = response.choices[0].message.content
     return response_text
 
@@ -90,7 +91,7 @@ def main():
         print("🎙️ David says:")
         print(analysis)
 
-        play_audio(analysis)
+        # play_audio(analysis)
 
         script = script + [{"role": "assistant", "content": analysis}]
 
